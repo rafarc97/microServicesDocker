@@ -30,3 +30,21 @@ As our stakeholders are very fussy, here you have some tips:
 * Research about the best npm (e.g Axios)
 * Try to “dockerize” some code. 			
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ANOTACIONES:
+
+- He intentado implementar la lógica de una arquitectura microservicios, 3 módulos independientes entre sí de los cuales uno de ellos (clientspolicies-services)
+se comunica con los otros dos para realizar los dos últimos servicios de la API especificada.
+
+-He tenido varios problemas estos días durante la realización de la web API:
+
+** Al intentar integrar la base de datos MongoDB, pude hacer funcionar el POST correctamente e introducir datos, pero no consigo realizar los GET para obtener
+un dato en concreto.
+** Al dockerizar cada microservicio consigo hacer funcionar cada módulo por separado, los cuales necesitan, además de lanzar la app de node, arrancar la base      de datos. Para esto he añadido un docker-compose.yml, con el inconveniente de que no me conecta correctamente a la base de datos.  Por lo que solo me             permite realizar endpoints que no requieran acceso a la base de datos.
+** Al realizar la integracion Swagger con este repositorio, no me aparece, por lo que he creado otro en mi perfil al cual podréis acceder para ver la documentacion: https://github.com/rafarc97/SwaggerDocumentation
+** He intentado también trabajar paralelamente con MongoDB, pero a través de la librería "mongoose", la cual se puede conectar con MongoDB Cloud (teniendo en uno de sus posibles proveedores a Amazon Web Services). De este modo también obtuve fallos al realizar la conexión mediante la opción de los drivers nativos de mongoDB, escribiendo el enlace: "mongodb+srv://rafarc97:<password>@clientsservice.tdf0t.mongodb.net/<dbname>?retryWrites=true&w=majority". Motivo que me hizo seguir desarrollando la API con la librería "monogdb".
+
+
+CONCLUSION: 
+
+A pesar de anteriormente haber realizado un proyecto bastante parecido (https://github.com/rafarc97/smallProjects/tree/master/APIRestBottle) usando el framework Bottle de Python y las bases de datos SQLITE3, me he aventurado a introducir muchas nuevas herramientas/tecnologías con las cuales nunca había trabajado anteriormente (bases de datos documentales, dockerizar varios procesos con docker-compose, swagger, implementación lógica de microservicios,... entre otros). Esto ha provocado que avanzara muy lentamente y finalmente no he podido realizar un código funcional en el 100% de su totalidad. No obstante, a pesar de todo ello, puedo decir que he aprendido muchísimas cosas que ni sabía que existan, lo cual me proporciona más motivación e ilusión para seguir aprendiendo acerca de este lenguaje en todas sus facetas back y front como es JavaScript.
