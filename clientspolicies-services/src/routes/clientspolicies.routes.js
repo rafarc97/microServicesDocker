@@ -1,16 +1,18 @@
-import Router, { response } from 'express'; //Módulo Router permite definir rutas
+import Router from 'express'; //Módulo Router permite definir rutas
+import response from 'express';
 import axios from 'axios';
 
 const router = Router();
 
 
 router.get('/:id', async (req,res) => {
-    id = req.params;
+    var {id} = req.params;
+    console.log(id);
     var policiesList = [];
     axios.get('http://localhost:4000/politics/').then((response) => {
-        for (i in response.data) {
+        for (let i in response.data) {
             if(response.data[i].clientId == id){
-                policiesList.append(response.data[i].clientId);
+                policiesList.push(response.data[i]);
                 res.json(policiesList);
             }
             else{
@@ -21,10 +23,10 @@ router.get('/:id', async (req,res) => {
 }); 
 
 router.get('/policyid/:id', async (req,res) => {
-    policyId = req.params;
+    var {policyId} = req.params;
     var userLinked = null;
-    axios.get('http://localhost:4000/clients/').then((response) => {
-        for (i in response.data) {
+    axios.get('http://localhost:3000/clients/').then((response) => {
+        for (let i in response.data) {
             if(response.data[i].id == policyId){
                 userLinked = response.data[i].id;
                 res.json(userLinked);
