@@ -31,7 +31,69 @@ As our stakeholders are very fussy, here you have some tips:
 * Try to “dockerize” some code. 			
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-### ANOTACIONES
+### CONFIGURACIÓN con DOCKER :whale:
+
+Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas.
+
+1. Clonar el respositorio
+2. Abrir una terminal por cada microservicio 
+3. Configurar la imagen y contenedor para arrancar cada microservicio
+
+- CREAMOS IMAGENES DOCKER:
+
+```
+docker build -t clients-service .
+docker build -t politics-service .
+docker build -t clientspoliticsservices .
+```
+
+- COMPROBAMOS QUE SE HA CREADO:
+
+```
+docker images
+```
+
+- EJECUTAMOS CONTENEDORES:
+
+```
+docker run -it -p 3001:3000 clients-service
+docker run -it -p 4001:4000 politics-service
+docker run -it -p 5001:5000 clientspoliticsservices
+```
+
+### CONFIGURACIÓN sin DOCKER :wrench:
+
+1. Clonar el respositorio
+2. Nos aseguramos de tener la base de datos mongodb instalado con sus respectivas configuraciones y luego la arrancamos con las siguientes instrucciones:
+
+```
+sudo apt-get install mongodb
+cd /lib/systemd/system
+sudo touch mongodb.service
+sudo nano mongodb.service
+systemctl list-unit-files --type=service
+sudo systemctl enable mongodb.service
+systemctl list-unit-files --type=service
+sudo systemctl start mongodb
+
+```
+2. Abrir una terminal por cada microservicio 
+3. Ejecutar la siguientes instrucciones en cada carpeta de cada microservicio para la descarga de todas las dependencias del proyecto:
+
+```
+npm install
+```
+
+4. Entrar en src desde la terminal y ejecutamos el proyecto con nodemon:
+
+```
+nodemon index.js
+```
+
+
+
+
+### ANOTACIONES :pencil2:
 
 - He intentado implementar la lógica de una arquitectura microservicios, 3 módulos independientes entre sí de los cuales uno de ellos (clientspolicies-services)
 se comunica con los otros dos a través del paquete axios para realizar los dos últimos servicios de la API especificada.
@@ -45,6 +107,6 @@ un dato en concreto. Este problema está en una línea de código en concreto, d
 4. He intentado también trabajar paralelamente con MongoDB, pero a través de la librería "mongoose", la cual se puede conectar con MongoDB Cloud (teniendo en uno de sus posibles proveedores a Amazon Web Services). De este modo también obtuve fallos al realizar la conexión mediante la opción de los drivers nativos de mongoDB, escribiendo el enlace: "mongodb+srv://rafarc97:<password>@clientsservice.tdf0t.mongodb.net/<dbname>?retryWrites=true&w=majority".Este motivo me hizo seguir desarrollando la API con la librería "monogdb". Este problema, del mismo modo que el primero, está en una línea de código en concreto, donde debe haber algún pequeño matiz que no me permita realizar la conexión correctamente. Es importante destacar que realmente no es imprescindible la utilización de una base de datos para esta prueba profesional, si no que se podría haber hecho todo utilizando el almacenamiento en memoria. El añadir una capa de persitencia de este modo con MongoDB provoca otro tipo de problemas como por ejemplo que todas las actualizaciones (el alta de un nuevo cliente o política en el sistema) no se estarían manejando con mi implementación.
 
 
-### CONCLUSIÓN 
+### CONCLUSIÓN :bowtie:
 
 A pesar de anteriormente haber realizado un [proyecto](https://github.com/rafarc97/smallProjects/tree/master/APIRestBottle) bastante parecido usando el framework Bottle de Python y las bases de datos SQLITE3, me he aventurado a introducir muchas nuevas herramientas/tecnologías con las cuales nunca había trabajado anteriormente (bases de datos documentales, dockerizar varios procesos con docker-compose, swagger, implementación lógica de microservicios,... entre otros). Esto ha provocado que avanzara muy lentamente y finalmente no he podido realizar un código funcional en el 100% de su totalidad. No obstante, a pesar de todo ello, puedo decir que he aprendido muchísimas cosas que ni sabía que existían, lo cual me proporciona más motivación e ilusión para seguir aprendiendo acerca de este lenguaje en todas sus facetas back y front como es JavaScript.
